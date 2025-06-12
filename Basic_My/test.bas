@@ -1,0 +1,2 @@
+LET A = 10
+PRINT A
