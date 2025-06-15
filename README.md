@@ -1,115 +1,124 @@
-# BASIC Interpreter in Python
+# BASIC++ ООП Документация (без модуля CALL)
 
-A lightweight interpreter for running classic BASIC programs, implemented in Python 3.
+## Классы и Объекты
 
-## Overview
+### Объявление класса
+```basic
+CLASS ИмяКласса [EXTENDS РодительскийКласс]
+  [свойства и методы]
+END CLASS
 
-This interpreter provides a faithful implementation of core BASIC language features while maintaining modern code standards. It supports both traditional numbered and modern unnumbered programming styles.
-
-## Technical Specifications
-
-### Supported Features
-
-- **Program Structure**:
-  - Line numbers (optional)
-  - Multi-statement lines
-  - Comments (`REM` or `!`)
-
-- **I/O Operations**:
-  - `PRINT` with formatting (`;`, `,`)
-  - `INPUT` for user input
-  - `DATA`/`READ` for embedded data
-
-- **Control Flow**:
-  - `GOTO` for unconditional jumps
-  - `IF...THEN` for conditionals
-  - `FOR...NEXT` loops
-
-- **Variables**:
-  - Scalar variables (implicit declaration)
-  - Numeric and string values
-  - Basic expressions
-
-### Implementation Details
-
-- **Parser**: Recursive descent with lookahead
-- **Memory Model**: Single global namespace
-- **Execution**: Direct interpretation (no compilation)
-
-## Usage
-
-### Command Line Interface
-
-```bash
-python3 basic.py program.bas [options]
-
-Supported Options
-Option	Description
--d	Enable debug output
--t	Show execution trace
-Example Programs
-1. Hello World
+Создание объекта
 basic
 
-10 PRINT "Hello, World"
-20 END
+LET объект = NEW ИмяКласса(параметры)
 
-2. Fibonacci Sequence
+Методы
+Объявление метода
 basic
 
-LET A = 1
-LET B = 1
-FOR I = 1 TO 10
-    PRINT A
-    LET C = A + B
-    LET A = B
-    LET B = C
-NEXT I
+METHOD ИмяМетода([параметр1, параметр2])
+  [тело метода]
+  LET this.свойство = значение  // Доступ к свойствам объекта
+END METHOD
 
-Limitations
+Конструктор
+basic
 
-    No support for:
+METHOD init([параметры])
+  REM Код инициализации объекта
+  LET this.имя = параметр
+END METHOD
 
-        Arrays
+Наследование
+basic
 
-        User-defined functions
+CLASS ДочернийКласс EXTENDS РодительскийКласс
+  REM Можно переопределять методы родителя
+  METHOD существующийМетод()
+    REM Новая реализация
+  END METHOD
+END CLASS
 
-        File I/O operations
+Полный пример
+basic
 
-        Advanced string manipulation
+REM Базовый класс
+CLASS Транспорт
+  METHOD init(модель)
+    LET this.модель = модель
+    LET this.скорость = 0
+  END METHOD
+  
+  METHOD разогнаться(величина)
+    LET this.скорость = this.скорость + величина
+    PRINT "Разгоняемся до"; this.скорость
+  END METHOD
+END CLASS
 
-    Current restrictions:
+REM Производный класс
+CLASS Автомобиль EXTENDS Транспорт
+  METHOD сигналить()
+    PRINT this.модель; " сигналит: Бип-бип!"
+  END METHOD
+END CLASS
 
-        Single-precision floating point only
+REM Использование классов
+LET тс = NEW Транспорт("Обычное")
+CALL тс.разогнаться(10)
 
-        1024 line limit per program
+LET машина = NEW Автомобиль("Лада")
+CALL машина.разогнаться(20)
+CALL машина.сигналить()
 
-        No line editing during input
+Ключевые особенности
 
-Development Notes
+    Ключевое слово this для доступа к свойствам
 
-The interpreter follows a clean architecture with separate:
+    Одиночное наследование через EXTENDS
 
-    Lexical analysis
+    Автоматический вызов конструктора
 
-    Syntax parsing
+    Динамическое создание свойств
 
-    Execution components
+Ограничения
 
-Error handling provides detailed messages with line number references.
-License
+    Нет перегрузки методов
 
-MIT License. See LICENSE file for details.
-text
+    Нет интерфейсов и абстрактных классов
 
+    Нет модификаторов доступа
 
-This version maintains a professional technical documentation style while being comprehensive. Key features:
+    Нет статических свойств/методов
 
-1. Clear section organization
-2. Technical accuracy
-3. Concise feature listings
-4. Practical examples
-5. Honest limitations disclosure
-6. Proper formatting for code samples
+Рекомендации
 
-The markdown structure ensures good readability both in source form and when rendered by documentation systems.
+    Всегда определяйте метод init
+
+    Используйте понятные имена
+
+    Не усложняйте цепочки наследования
+
+    Документируйте методы:
+
+basic
+
+METHOD рассчитать(х, у)
+  REM Возвращает сумму x и y
+  REM Возвращает: Числовой результат
+  RETURN х + у
+END METHOD
+
+Альтернатива CALL
+
+Для вызова методов используйте прямое обращение:
+basic
+
+LET результат = объект.метод(параметры)
+
+Пример:
+basic
+
+LET сумма = калькулятор.сложить(5, 3)
+
+Эта документация охватывает все ООП-возможности BASIC++ без использования модуля CALL. Синтаксис сочетает привычный BASIC с современными ООП-концепциями.
